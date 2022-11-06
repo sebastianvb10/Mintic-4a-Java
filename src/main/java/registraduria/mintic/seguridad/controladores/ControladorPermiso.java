@@ -37,23 +37,23 @@ public class ControladorPermiso {
     @ResponseStatus(HttpStatus.ACCEPTED)
     @DeleteMapping ("{idPermiso}")
     public void borrarPermiso(@PathVariable String idPermiso){
-        Permiso usuario1=repoPermi1
+        Permiso permiso1=repoPermi1
                 .findById(idPermiso)
                 .orElse(null);
-        if(usuario1!=null){
-            repoPermi1.delete(usuario1);
+        if(permiso1!=null){
+            repoPermi1.delete(permiso1);
         }
     }
     @PutMapping("{idPermiso}")
-    public Permiso modificarUsuario(@PathVariable String idUsuario,@RequestBody Usuario infoUsuario){
-        log.info("Modificando el usuario con id: {}",idUsuario);
+    public Permiso modificarPermiso(@PathVariable String idPermiso,@RequestBody Permiso infoPermiso){
+        log.info("Modificando el usuario con id: {}",idPermiso);
         Permiso permiso1= repoPermi1
-                .findById(idUsuario)
+                .findById(idPermiso)
                 .orElse(null);
         log.info("Usuario encontrado en base de datos: {}",permiso1);
         if(permiso1!=null){
-            permiso1.setUrl(infoUsuario.getSeudonimo());
-            permiso1.setMetodo(infoUsuario.getCorreo());
+            permiso1.setUrl(infoPermiso.getUrl());
+            permiso1.setMetodo(infoPermiso.getMetodo());
             return repoPermi1.save(permiso1);
         }
         else {
