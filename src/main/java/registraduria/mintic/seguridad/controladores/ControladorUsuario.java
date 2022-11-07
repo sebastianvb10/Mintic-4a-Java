@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import registraduria.mintic.seguridad.modelos.Rol;
 import registraduria.mintic.seguridad.modelos.Usuario;
+import registraduria.mintic.seguridad.repositorios.RepositorioRol;
 import registraduria.mintic.seguridad.repositorios.RepositorioUsuario;
 
 import java.security.MessageDigest;
@@ -20,6 +22,8 @@ public class ControladorUsuario {
     @Autowired
     RepositorioUsuario repoUsu1;
 
+    @Autowired
+    RepositorioRol repoRol1;
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Usuario crearUsuario(@RequestBody Usuario infoUsuario){
@@ -66,6 +70,22 @@ public class ControladorUsuario {
         else {
             return null;
         }
+    }
+    @PutMapping("{idusuario}/rol/{idRol}")
+    public Usuario asociarUnRol(@PathVariable String idUsuario, @PathVariable String idRol){
+        Usuario usuario=repoUsu1
+                .findById(idUsuario)
+                .orElse(null);
+        Rol rol= repoRol1
+                .findById(idRol)
+                .orElse(null);
+        if(usuario!=null && rol!=null){
+            usuario.setRol(rol);
+            repoUsu1.save(usuario);
+        }else{
+            return null;
+        }
+        return usuario;
     }
     public String convertirSHA256(String password) {
         MessageDigest md = null;
