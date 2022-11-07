@@ -81,11 +81,11 @@ public class ControladorUsuario {
                 .orElse(null);
         if(usuario!=null && rol!=null){
             usuario.setRol(rol);
-            repoUsu1.save(usuario);
+            return   repoUsu1.save(usuario);
         }else{
             return null;
         }
-        return usuario;
+
     }
     public String convertirSHA256(String password) {
         MessageDigest md = null;
