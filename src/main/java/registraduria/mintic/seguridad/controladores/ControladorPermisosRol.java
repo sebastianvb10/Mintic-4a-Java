@@ -1,6 +1,7 @@
 package registraduria.mintic.seguridad.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import registraduria.mintic.seguridad.modelos.Permiso;
 import registraduria.mintic.seguridad.modelos.PermisosRol;
@@ -8,6 +9,7 @@ import registraduria.mintic.seguridad.modelos.Rol;
 import registraduria.mintic.seguridad.repositorios.RepositorioPermiso;
 import registraduria.mintic.seguridad.repositorios.RepositorioPermisosRol;
 import registraduria.mintic.seguridad.repositorios.RepositorioRol;
+import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -31,5 +33,14 @@ public class ControladorPermisosRol {
         return repoPermisosRol1.save(permisosRol);
     }
     @GetMapping
-    public
+    public List<PermisosRol> buscarTodosPermisosRoles(){
+        return repoPermisosRol1.findAll();
+    }
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @DeleteMapping ("{idPermisosRol}")
+    public void borrarPermisosRol(@PathVariable String idPermisosRol){
+        PermisosRol permisosRol=repoPermisosRol1
+                .findById(idPermisosRol)
+                .orElse(null);
+    }
 }
