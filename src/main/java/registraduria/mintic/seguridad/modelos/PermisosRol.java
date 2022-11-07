@@ -15,4 +15,8 @@ public class PermisosRol {
     @DBRef
     private Permiso permiso;
 
+    public PermisosRol(Rol rol, Permiso permiso) {
+        this.rol = rol;
+        this.permiso = permiso;
+    }
 }

@@ -27,7 +27,9 @@ public class ControladorPermisosRol {
         Rol rol1=repoRol1
                 .findById(idRol)
                 .orElseThrow(RuntimeException::new);
-        PermisosRol permisosRol=new PermisosRol();
-
+        PermisosRol permisosRol=new PermisosRol(rol1,permiso1);
+        return repoPermisosRol1.save(permisosRol);
     }
+    @GetMapping
+    public
 }
