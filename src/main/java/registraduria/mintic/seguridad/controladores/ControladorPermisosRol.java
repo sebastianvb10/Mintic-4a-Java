@@ -43,4 +43,22 @@ public class ControladorPermisosRol {
                 .findById(idPermisosRol)
                 .orElse(null);
     }
+    @PutMapping("{id}/rol/{id_rol}/permiso/{id_permiso}")
+    public PermisosRol update(@PathVariable String id,@PathVariable
+    String id_rol,@PathVariable String id_permiso){
+        PermisosRol permisosRolesActual=this.repoPermisosRol1
+                .findById(id)
+                .orElse(null);
+        Rol rol1=this.repoPermisosRol1.findById(id_rol).get().getRol();
+        Permiso
+                permiso1=this.repoPermisosRol1.findById(id_permiso).get().getPermiso();
+        if(permisosRolesActual!=null && permiso1!=null && rol1!=null){
+            permisosRolesActual.setPermiso(permiso1);
+            permisosRolesActual.setRol(rol1);
+            return
+                    this.repoPermisosRol1.save(permisosRolesActual);
+        }else{
+            return null;
+        }
+    }
 }
