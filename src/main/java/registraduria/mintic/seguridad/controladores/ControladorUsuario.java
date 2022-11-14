@@ -90,7 +90,9 @@ public class ControladorUsuario {
     @PostMapping("validar-usuario")
     public Usuario validarUsuario(@RequestBody Usuario usuario1){
         log.info("Validando el usuario, request body {}",usuario1);
-        return null;
+        Usuario usuarioEncontrado= repoUsu1.findByEmail(usuario1.getCorreo());
+
+        return usuarioEncontrado;
     }
     public String convertirSHA256(String password) {
         MessageDigest md = null;
