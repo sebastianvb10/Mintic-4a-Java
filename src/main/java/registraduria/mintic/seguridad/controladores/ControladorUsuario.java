@@ -91,8 +91,12 @@ public class ControladorUsuario {
     public Usuario validarUsuario(@RequestBody Usuario usuario1){
         log.info("Validando el usuario, request body {}",usuario1);
         Usuario usuarioEncontrado= repoUsu1.findByEmail(usuario1.getCorreo());
-
-        return usuarioEncontrado;
+        if (usuarioEncontrado.getContrasena().equals(convertirSHA256(usuario1.getContrasena()))){
+            return usuarioEncontrado;
+        }
+        else{
+            return null;
+        }
     }
     public String convertirSHA256(String password) {
         MessageDigest md = null;
