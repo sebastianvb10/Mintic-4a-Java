@@ -87,6 +87,11 @@ public class ControladorUsuario {
         }
 
     }
+    @PostMapping("validar-usuario")
+    public Usuario validarUsuario(@RequestBody Usuario usuario1){
+        log.info("Validando el usuario, request body {}",usuario1);
+        return null;
+    }
     public String convertirSHA256(String password) {
         MessageDigest md = null;
         try {
