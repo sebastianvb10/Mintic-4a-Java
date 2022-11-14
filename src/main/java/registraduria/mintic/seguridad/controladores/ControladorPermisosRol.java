@@ -1,5 +1,6 @@
 package registraduria.mintic.seguridad.controladores;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import registraduria.mintic.seguridad.repositorios.RepositorioPermisosRol;
 import registraduria.mintic.seguridad.repositorios.RepositorioRol;
 import java.util.List;
 
+@Slf4j
 @CrossOrigin
 @RestController
 @RequestMapping("/permisosRol")
@@ -60,5 +62,27 @@ public class ControladorPermisosRol {
         }else{
             return null;
         }
+    }
+    @GetMapping("validar-permisos/rol/{idRol}")
+    public PermisosRol validarPermisosRol(@PathVariable String idRol, @RequestBody Permiso infoPermiso){
+        Rol rolEncontrado =repoRol1
+                .findById(idRol)
+                .orElse(null);
+        if(rolEncontrado!=null){
+            Permiso permisoEncontrado=repoPermisosRol1.findByMethodAndUrl(infoPermiso.getUrl(),infoPermiso.getMetodo());
+            if(permisoEncontrado !=null){
+                log.info("Encontro permiso en base de datos");
+                return null;
+            }
+            else{
+                log.info("Encontro permiso en base de datos");
+                return null;
+            }
+        }
+        else{
+            return null;
+        }
+        //validar si existe el rol en db
+
     }
 }

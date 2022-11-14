@@ -10,6 +10,8 @@ import registraduria.mintic.seguridad.modelos.Usuario;
 import registraduria.mintic.seguridad.repositorios.RepositorioRol;
 import registraduria.mintic.seguridad.repositorios.RepositorioUsuario;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -88,13 +90,21 @@ public class ControladorUsuario {
 
     }
     @PostMapping("validar-usuario")
-    public Usuario validarUsuario(@RequestBody Usuario usuario1){
+    public Usuario validarUsuario(@RequestBody Usuario usuario1, HttpServletResponse response) throws IOException {
         log.info("Validando el usuario, request body {}",usuario1);
         Usuario usuarioEncontrado= repoUsu1.findByEmail(usuario1.getCorreo());
-        if (usuarioEncontrado.getContrasena().equals(convertirSHA256(usuario1.getContrasena()))){
-            return usuarioEncontrado;
+        if(usuarioEncontrado!=null){
+            if (usuarioEncontrado.getContrasena().equals(convertirSHA256(usuario1.getContrasena()))){
+                usuarioEncontrado.setContrasena("");
+                return usuarioEncontrado;
+            }
+            else{
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return null;
+            }
         }
         else{
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
             return null;
         }
     }
