@@ -68,18 +68,16 @@ public class ControladorPermisosRol {
         Rol rolEncontrado =repoRol1
                 .findById(idRol)
                 .orElse(null);
-        if(rolEncontrado!=null){
-            Permiso permisoEncontrado=repoPermisosRol1.findByMethodAndUrl(infoPermiso.getUrl(),infoPermiso.getMetodo());
-            if(permisoEncontrado !=null){
-                log.info("Encontro permiso en base de datos");
-                return null;
-            }
-            else{
-                log.info("Encontro permiso en base de datos");
-                return null;
-            }
+        Permiso permisoEncontrado=repoPermiso1
+                .findById(infoPermiso.get_id())
+                .orElse(null);
+        if(rolEncontrado!=null &&permisoEncontrado!=null){
+            log.info("Se");
+            return null;
+
         }
         else{
+            log.error("No se encuentra el rol en base de datos");
             return null;
         }
         //validar si existe el rol en db

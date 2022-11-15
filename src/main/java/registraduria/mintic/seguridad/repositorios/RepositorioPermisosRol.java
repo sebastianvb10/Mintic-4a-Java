@@ -7,7 +7,6 @@ import registraduria.mintic.seguridad.modelos.PermisosRol;
 
 public interface RepositorioPermisosRol extends MongoRepository<PermisosRol,String> {
 
-    @Query("{'url':?0, 'metodo':?1")
-    public Permiso findByMethodAndUrl(String url, String metodo);
+
 
 }
