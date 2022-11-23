@@ -73,8 +73,10 @@ public class ControladorUsuario {
             return null;
         }
     }
-    @PutMapping("{idusuario}/rol/{idRol}")
+    @PutMapping("{idUsuario}/rol/{idRol}")
     public Usuario asociarUnRol(@PathVariable String idUsuario, @PathVariable String idRol){
+        System.out.println(idUsuario);
+        System.out.println(idRol);
         Usuario usuario=repoUsu1
                 .findById(idUsuario)
                 .orElse(null);

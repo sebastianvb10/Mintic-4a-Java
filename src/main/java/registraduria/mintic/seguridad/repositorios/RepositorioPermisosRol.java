@@ -7,6 +7,7 @@ import registraduria.mintic.seguridad.modelos.PermisosRol;
 
 public interface RepositorioPermisosRol extends MongoRepository<PermisosRol,String> {
 
-
+        @Query("{'rol.$id':ObjectId(?0),'permiso.$id':ObjectId(?1)}")//Se accede a un atributo con.$
+        public PermisosRol findByRolandPermissions(String idRol,String idPermiso);
 
 }
